@@ -1,0 +1,219 @@
+
+/*		Author: Warren Cyrus ~ DevolutionX
+ *		Built With KallistiOS and 'FOSS'.
+ *
+ *		v0.3.3		08/28/16
+ */
+
+                            CCCCCCCCCCCCC                                           tttt
+                         CCC::::::::::::C                                        ttt:::t
+                       CC:::::::::::::::C                                        t:::::t
+                      C:::::CCCCCCCC::::C                                        t:::::t
+    eeeeeeeeeeee     C:::::C       CCCCCC  aaaaaaaaaaaaa      ssssssssss   ttttttt:::::ttttttt       ooooooooooo       ssssssssss
+  ee::::::::::::ee  C:::::C                a::::::::::::a   ss::::::::::s  t:::::::::::::::::t     oo:::::::::::oo   ss::::::::::s
+ e::::::eeeee:::::eeC:::::C                aaaaaaaaa:::::ass:::::::::::::s t:::::::::::::::::t    o:::::::::::::::oss:::::::::::::s
+e::::::e     e:::::eC:::::C                         a::::as::::::ssss:::::stttttt:::::::tttttt    o:::::ooooo:::::os::::::ssss:::::s
+e:::::::eeeee::::::eC:::::C                  aaaaaaa:::::a s:::::s  ssssss       t:::::t          o::::o     o::::o s:::::s  ssssss
+e:::::::::::::::::e C:::::C                aa::::::::::::a   s::::::s            t:::::t          o::::o     o::::o   s::::::s
+e::::::eeeeeeeeeee  C:::::C               a::::aaaa::::::a      s::::::s         t:::::t          o::::o     o::::o      s::::::s
+e:::::::e            C:::::C       CCCCCCa::::a    a:::::assssss   s:::::s       t:::::t    tttttto::::o     o::::ossssss   s:::::s
+e::::::::e            C:::::CCCCCCCC::::Ca::::a    a:::::as:::::ssss::::::s      t::::::tttt:::::to:::::ooooo:::::os:::::ssss::::::s
+ e::::::::eeeeeeee     CC:::::::::::::::Ca:::::aaaa::::::as::::::::::::::s       tt::::::::::::::to:::::::::::::::os::::::::::::::s
+  ee:::::::::::::e       CCC::::::::::::C a::::::::::aa:::as:::::::::::ss          tt:::::::::::tt oo:::::::::::oo  s:::::::::::ss
+    eeeeeeeeeeeeee          CCCCCCCCCCCCC  aaaaaaaaaa  aaaa sssssssssss              ttttttttttt     ooooooooooo     sssssssssss
+
+INFO:
+	The file main.c is the eCastOS core operating facility.
+	The included libraries are libsupport and libproto.
+	libsupport is recycled: SWAT over @ http://www.dc-swat.ru/
+	libproto is written by the Author.
+    Additional code was written by the Author.
+
+LICENSE:
+	PART1:
+		The Following Files are NOT MINE:
+		enc28j60.c enc28j60.h
+		Please visit SWAT over @ http://www.dc-swat.ru/
+		For this information.
+	PART2:
+		All Remaining Code is CC 4.0 License.
+
+libsupport.a:
+	This is the core support library.
+	Includes drivers for Serial Ethernet Phy
+	Files:
+		enc28j60.c	/ enc28j60.h
+
+libproto.a:
+	This is the core library for eCastos.
+	Files:
+		proto_sub1.c	/ proto_sub1.h
+		proto_sub2.c	/ proto_sub2.h
+		proto_sio.c     / proto_sio.h
+
+CREDIT WHERE DUE:
+	Bluecrab 	- Several Examples from src included in KOS and online @ http://dcemulation.org/
+	SWAT	 	- Sources from DreamShell his popular OS
+
+NOTES:
+		This is a Work In Progess
+		Testing is done over serial with dcload-serial 1.0.4 windows executable and the companion cdr.
+
+MAKEFILE_DOC:
+	make options:
+		all - builds the librarys, subelf, and bootelf
+		________________________________________
+		^\                all                 /^
+		^ \__________________________________/ ^
+		^ make sure to build this first if     ^
+		^ you used the clean command. librarys ^
+		^ are first to be built.               ^
+		^______________________________________^
+
+		build - builds the subelf, and bootelf
+		________________________________________
+		^\                build               /^
+		^ \__________________________________/ ^
+		^ this make command is the one to use  ^
+		^ if requiring an executable for       ^
+		^ testing on hardware.                 ^
+		^______________________________________^
+
+		dbg - starts dc-tool.exe and executes the target as elf
+		run - starts dc-tool.exe and ececutes the target as bin
+		________________________________________
+		^\             dbg & run              /^
+		^ \__________________________________/ ^
+		^ can change in the makefile.          ^
+		^ i use my own usb to serial setup     ^
+		^ thats why its set to 1500000kbps     ^
+		^ change the com port to match ur com# ^
+		^______________________________________^
+
+		rebuild - cleans the entire source, then executes 'all' and 'build' for a fresh build
+		clean - cleans the entire source
+
+        Example Build and Deploy:
+			make rebuild
+			make dbg
+		OR:
+			make rebuild
+			make run
+
+
+LIBPROTO.A Library
+
+	proto_sio.h:
+
+		[ int initSIO(int baud, int fifo) ]
+			Sets the parameters for the serial device.
+			Then detect & initialize the serial device.
+
+		[ int stopSIO() ]
+			Sends Shutdown for the serial device.
+
+		[ int flushSIO() ]
+			Sends pending data and syncs the serial device.
+
+	proto_sub1.h:
+
+		[ initTXT(int *n) ]
+			Sets the Encoding.
+
+		[ void initBG(char *bg) ]
+			Loads 'bg' into pvr texture memory.
+
+		[ void drawBG() ]
+			Renders the png and sets the parameters for rendering.
+
+		[ initVideo(int disMode, int pixMode) ]
+			Initializes the video.
+			Sets up the display with the KOS macros.
+
+		[ clearVideo(int r, int g, int b) ]
+			Clears video with input rgb color.
+			If in a loop this function can draw the input rgb color indefinitely.
+
+		[ printPVR(int x, int y, char *str) ]
+			Takes the input character string, also taking
+			the x and y coordinates then automatically
+			render it starting at top left corner(0=x,0=y)
+			and typical starting point for printPVR is x=0, y=0.
+
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			~ //MAX is 20 lines #DISP_HEIGHT 480 / 24 = 20                               ~
+			~ //MAX characters is 53 per line #DISP_WIDTH 640 / 12 = 53 rounded down     ~
+			~ while (MAGIC_FUNCTION) {                                                   ~
+			~        printPVR(0,0,"HELLO WORLD 		  NOTE: 12 is the font char width"); ~
+			~        printPVR(0,24,"Hello from 2nd line NOTE: 24 is font char height");  ~
+			~ }                                                                          ~
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		Recycled: Bluecrab
+			void drawHLine(int x1, int x2, int y, uint16 c);
+			void drawVLine(int x, int y1, int y2, uint16 c);
+			void drawCBox(int x1, int y1, int x2, int y2, uint16 c);
+			void drawFBox(int x1, int y1, int x2, int y2, uint16 c);
+
+	proto_sub2.h:
+
+		[ void mountCTL(char *blkhdd, int state) ]
+            Basic function that handles the hard
+            drive mounting process.
+
+		[ void printDIR(char *dir) ]
+            Prints the specified directory over Serial
+            and also Displays it on Screen.
+
+		[ void printRFS() ]
+            Similar to printDIR().
+
+		[ int checkHDD() ]
+            This function is called under initFS()
+            to detect if we should continue to mount
+            the hard drive.
+
+		[ int initHDD() ]
+            Simple function to setup the G1ATA
+            hard drive parameters and vfs.
+
+		[ int initFS(char *blkhdd) ]
+            Simple function to setup the filesystem
+            for use with ext2fs drives.
+
+		[ int removeFS(char *blkhdd) ]
+            Simple function thats called under mountCTL()
+            that does the unmounting process.
+
+		[ int syncHDD(char *blkhdd) ]
+            Simple function to sync the ext2fs on
+            the hard drive and flush its cache.
+
+		[ int writeTextFile(char *blkhdd, char *str) ]
+            Writes a text string to a specific
+            file and directory.
+
+        [ int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard) ]
+            Takes parameters and a file location
+            to store eCastOS's configuration data.
+
+        [ int settingDBRead(char *blkhdd) ]
+            Loads and Displays the configuration
+            for eCastOS over Serial.
+
+		[ int writeRTF() ]
+            Writes a test text file on root.
+
+		[ int executeSub(char *rdsubelf) ]
+            Executes a secondary binary from romdisk.
+
+		[ void shutDown(char *blkhdd) ]
+            Handles the Applications shutdown process.
+
+
+TODO: Create Directory Function
+	  Delete Directory Function
+	  Cut Copy Paste Functions
+	  Keyboard Input
+	  Mouse Input
+	  Sub PVR Surface for Keyboard dialog

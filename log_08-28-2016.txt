@@ -1,0 +1,213 @@
+~ BUILDLOG
+
+CyrusDevX@DevolutionX ~/atom/eCastOS
+$ make rebuild
+make clean
+make[1]: Entering directory '/home/CyrusDevX/atom/eCastOS'
+
+rm -f build/main.elf build/1ST_READ.BIN romdisk/SUB.ECS build/subelf.elf
+    lib/libsupport.a lib/libproto.a build/main.o build/proto_sub1.o build/proto_sub2.o
+    build/proto_sio.o romdisk.o build/proto_sub1.o build/proto_sub2.o romdisk.o
+    build/subelf.o romdisk.* build/*.o build/SUB.ECS
+
+make[1]: Leaving directory '/home/CyrusDevX/atom/eCastOS'
+make all
+make[1]: Entering directory '/home/CyrusDevX/atom/eCastOS'
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+    -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include -D_arch_dreamcast
+    -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing  -ml -m4-single-only
+    -Wl,-Ttext=0x8c010000 -Wl,--gc-sections -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc
+    -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast -L/usr/local/dc/kos/kos/addons/lib/dreamcast
+    -L/usr/local/dc/kos/kos/../kos-ports/lib -Iinclude -c src/support/enc28j60.c -o build/enc28j60.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-ar rcs lib/libsupport.a build/enc28j60.o #build/g2_ide.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+    -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include
+    -D_arch_dreamcast -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing
+    -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+    -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+    -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib
+    -Iinclude -c src/proto/proto_sio.c -o build/proto_sio.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+    -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include
+    -D_arch_dreamcast -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing
+    -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+    -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+    -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib
+    -Iinclude -c src/proto/proto_sub1.c -o build/proto_sub1.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+    -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include
+    -D_arch_dreamcast -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing
+    -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+    -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+    -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib
+    -Iinclude -c src/proto/proto_sub2.c -o build/proto_sub2.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-ar rcs lib/libproto.a build/proto_sio.o build/proto_sub1.o build/proto_sub2.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+    -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include
+    -D_arch_dreamcast -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing
+    -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+    -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+    -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib
+    -Iinclude -c src/subelf/subelf.c -o build/subelf.o
+
+genromfs.exe -f romdisk.img -d romdisk -v -x .svn
+0    rom 57c2cdcc         [0xffffffff, 0xffffffff] 37777777777, sz     0, at 0x0
+1    .                    [0x7ef7e9b2, 0xf41f    ] 0040755, sz     0, at 0x20
+1    ..                   [0x7ef7e9b2, 0xe7c8    ] 0040755, sz     0, at 0x40     [link to 0x20    ]
+1    bg.png               [0x7ef7e9b2, 0x2250f   ] 0100755, sz 57372, at 0x60
+
+/usr/local/dc/kos/kos/utils/bin2o/bin2o romdisk.img romdisk romdisk.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc lib/libsupport.a lib/libproto.a -g -O3 -DFRAME_POINTERS
+    -ml -m4-single-only -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+        -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include
+        -I/usr/local/dc/kos/kos/addons/include -I/usr/local/dc/kos/kos/../kos-ports/include
+        -D_arch_dreamcast -D_arch_sub_pristine -Wall -g -fno-builtin -fno-strict-aliasing
+        -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+        -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+        -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib -o build/subelf.elf
+        build/proto_sub1.o build/proto_sub2.o romdisk.o build/subelf.o
+        -lkosext2fs -lpng -lz -lm -Wl,--start-group -lkallisti -lc -lgcc -Wl,--end-group
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-objcopy -O binary -R .stack build/subelf.elf build/SUB.ECS
+
+cp build/SUB.ECS romdisk/SUB.ECS
+
+genromfs.exe -f romdisk.img -d romdisk -v -x .git .svn
+0    rom 57c2cdcd         [0xffffffff, 0xffffffff] 37777777777, sz     0, at 0x0
+1    .                    [0x7ef7e9b2, 0xf41f    ] 0040755, sz     0, at 0x20
+1    ..                   [0x7ef7e9b2, 0xe7c8    ] 0040755, sz     0, at 0x40     [link to 0x20    ]
+1    bg.png               [0x7ef7e9b2, 0x2250f   ] 0100755, sz 57372, at 0x60
+1    SUB.ECS              [0x7ef7e9b2, 0x2ea30   ] 0100755, sz 405520, at 0xe0a0
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc -g -O3 -DFRAME_POINTERS -ml -m4-single-only
+    -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include -I/usr/local/dc/kos/kos/include
+    -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include -I/usr/local/dc/kos/kos/addons/include
+    -I/usr/local/dc/kos/kos/../kos-ports/include -D_arch_dreamcast -D_arch_sub_pristine -Wall -g
+    -fno-builtin -fno-strict-aliasing  -ml -m4-single-only -Wl,-Ttext=0x8c010000 -Wl,--gc-sections
+    -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs -L/usr/local/dc/kos/kos/lib/dreamcast
+    -L/usr/local/dc/kos/kos/addons/lib/dreamcast -L/usr/local/dc/kos/kos/../kos-ports/lib -Iinclude -c src/main.c -o build/main.o
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-gcc lib/libsupport.a lib/libproto.a -g -O3 -DFRAME_POINTERS
+    -ml -m4-single-only -ffunction-sections -fdata-sections -I/usr/local/dc/kos/kos/../kos-ports/include
+    -I/usr/local/dc/kos/kos/include -I/usr/local/dc/kos/kos/kernel/arch/dreamcast/include -I/usr/local/dc/kos/kos/addons/include
+    -I/usr/local/dc/kos/kos/../kos-ports/include -D_arch_dreamcast -D_arch_sub_pristine
+    -Wall -g -fno-builtin -fno-strict-aliasing  -ml -m4-single-only -Wl,-Ttext=0x8c010000
+    -Wl,--gc-sections -T/usr/local/dc/kos/kos/utils/ldscripts/shlelf.xc -nodefaultlibs
+    -L/usr/local/dc/kos/kos/lib/dreamcast -L/usr/local/dc/kos/kos/addons/lib/dreamcast
+    -L/usr/local/dc/kos/kos/../kos-ports/lib -o build/main.elf
+    build/main.o build/proto_sub1.o build/proto_sub2.o build/proto_sio.o romdisk.o
+    -lkosext2fs -lpng -lz -lm -Wl,--start-group -lkallisti -lc -lgcc -Wl,--end-group
+
+/opt/toolchains/dc/sh-elf/bin/sh-elf-objcopy -O binary -R .stack build/main.elf build/1ST_READ.BIN
+
+make[1]: Leaving directory '/home/CyrusDevX/atom/eCastOS'
+
+####################################################################################################
+
+~ RUNLOG
+
+CyrusDevX@DevolutionX ~/atom/eCastOS
+$ make run
+dc-tool.exe  -b 1500000 -t COM2 -x build/1ST_READ.BIN
+Console enabled
+Changing speed to 1500000 bps... done
+Upload <build/1ST_READ.BIN>
+File format is raw binary, start address is 0x8c010000
+send_data: CCCCCCCCCCCCCCCCCCCCCCCCCCCCCUUUCCCCC
+effective: 163123.73 bytes / sec
+3.66 seconds to transfer 596904 bytes
+Executing at <0x8c010000>
+Sending execute command (0x8c010000, console=1)...executing
+
+--
+KallistiOS Git revision 54b738d: Sun, Feb 07, 2016 10:43:17 PM
+  CyrusDevX@DevolutionX:/usr/local/dc/kos/kos
+maple: active drivers:
+    Dreameye (Camera): Camera
+    Sound Input Peripheral: Microphone
+    PuruPuru (Vibration) Pack: JumpPack
+    VMU Driver: Clock, LCD, MemoryCard
+    Mouse Driver: Mouse
+    Keyboard Driver: Keyboard
+    Controller Driver: Controller
+    Lightgun: LightGun
+  DMA Buffer at ac0fffe0
+vid_set_mode: 640x480IL NTSC
+fs_romdisk: mounting image at 0x8c082944 at /rd
+dc-load console support enabled
+maple: attached devices:
+  B0: Dreamcast Mouse               (00020000: Mouse)
+  D0: Dreamcast Controller          (01000000: Controller)
+  D1: Visual Memory                 (0e000000: Clock, LCD, MemoryCard)
+  D2: Visual Memory                 (0e000000: Clock, LCD, MemoryCard)
+vid_set_mode: 640x480IL NTSC
+pvr: enabling vertical scaling for non-VGA
+
+Text Data Initialized and Ready
+Background Initialized and Ready
+
+g1_ata_scan: found device with LBA48: 156301488
+*** PIO MODE ***
+~ G1 ATA Device Initialized
+~ Set drive to SLAVE and Partition 0 Selected
+~ ATA Device Hardware Check Passed
+~ Initialized & Mounted the filesystem
+
+~ Mount State Was Set To False!
+~ Unmounted ext2fs
+
+~ Mount State Was Set To True!
+~ ATA Device Hardware Check Passed
+~ Initialized & Mounted the filesystem
+
+Wrote to file: /hd/test.txt
+
+Saved settings!
+~ STATEMACHINE set to PrintDIR
+
+Listing the contents of /hd:
+.
+..
+test.txt
+settings.conf
+
+*** PAUSE RENDERING PVR ***
+
+*** RESUME RENDERING PVR ***
+
+~ Settings ~
+USERNAME = CYRUS | MOTD = HelloWorld | ID = 1
+
+Start Button Pressed
+
+~ SYNC ext2fs
+
+~ Unmounted ext2fs
+
+Shutdown Reached!
+
+arch: shutting down kernel
+maple: final stats -- device count = 4, vbl_cntr = 2060, dma_cntr = 2051
+vid_set_mode: 640x480IL NTSC
+fs_romdisk: unmounting image at 0x8c082944 from /rd
+max system bytes =    2157616
+system bytes     =     416816
+in use bytes     = 4278195640

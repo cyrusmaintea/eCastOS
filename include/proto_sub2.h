@@ -1,0 +1,15 @@
+extern int statusPDIR;
+extern void mountCTL(char *blkhdd, int state);
+extern void printDIR(char *dir);
+extern void printRFS();
+extern int checkHDD();
+extern int initHDD();
+extern int initFS(char *blkhdd);
+extern int removeFS(char *blkhdd);
+extern int syncHDD(char *blkhdd);
+extern int writeTextFile(char *blkhdd, char *str);
+extern int settingDBRead(char *blkhdd);
+extern int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard);
+extern int writeRTF();
+extern int executeSub(char *rdsubelf);
+extern void shutDown(char *blkhdd);
