@@ -1,6 +1,7 @@
 //*****************************************************************//
 //KOS
 #include <kos.h>
+#include <conio/conio.h>
 //POR
 #include <png/png.h>
 #include <zlib/zlib.h>
@@ -11,6 +12,9 @@
 #include <errno.h>
 #include <dirent.h>
 #include <assert.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 //DC
 #include <dc/g1ata.h>
 #include <dc/maple/keyboard.h>
@@ -22,7 +26,7 @@
 #include <proto_sub1.h>
 #include <proto_sub2.h>
 #include <proto_sio.h>
-//#include <g2_ide.h>
+#include <proto_util.h>
 //*****************************************************************//
 
 //DEFINES
@@ -50,6 +54,11 @@ FILE *fp;
 file_t f;
 int mountState;
 struct dirent *entry;
+
+//settings
+char user[32];
+char motd[128];
+int id;
 
 //Author's methods Start:
 void update();

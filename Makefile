@@ -34,17 +34,17 @@ run:
 	$(KOS_LOADER) -b 1500000 -t COM2 -x $(BINTARGET)
 
 clean:
-	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*.o
+	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*
 
 buildboot: main.o $(TARGET)
 
 buildsub: subelf.o $(SUBTARGET)
 
-supportlib: enc28j60.o #g2_ide.o
-	$(KOS_AR) rcs lib/libsupport.a $(BUILD)/enc28j60.o #$(BUILD)/g2_ide.o
+supportlib: enc28j60.o
+	$(KOS_AR) rcs lib/libsupport.a $(BUILD)/enc28j60.o
 
-protolib: proto_sio.o proto_sub1.o proto_sub2.o
-	$(KOS_AR) rcs lib/libproto.a $(BUILD)/proto_sio.o $(BUILD)/proto_sub1.o $(BUILD)/proto_sub2.o
+protolib: proto_sio.o proto_sub1.o proto_sub2.o proto_util.o
+	$(KOS_AR) rcs lib/libproto.a $(BUILD)/proto_sio.o $(BUILD)/proto_sub1.o $(BUILD)/proto_sub2.o $(BUILD)/proto_util.o
 
 main.o: $(SRC)/main.c
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/main.c -o $(BUILD)/main.o
@@ -55,9 +55,6 @@ subelf.o: $(SRC)/subelf/subelf.c
 enc28j60.o: $(SRC)/support/enc28j60.c
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/support/enc28j60.c -o $(BUILD)/enc28j60.o
 
-#g2_ide.o: $(SRC)/support/g2_ide.c
-#	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/support/g2_ide.c -o $(BUILD)/g2_ide.o
-
 proto_sio.o: $(SRC)/proto/proto_sio.c
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/proto/proto_sio.c -o $(BUILD)/proto_sio.o
 
@@ -66,6 +63,9 @@ proto_sub1.o: $(SRC)/proto/proto_sub1.c
 
 proto_sub2.o: $(SRC)/proto/proto_sub2.c
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/proto/proto_sub2.c -o $(BUILD)/proto_sub2.o
+
+proto_util.o: $(SRC)/proto/proto_util.c
+	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/proto/proto_util.c -o $(BUILD)/proto_util.o
 
 genromfs:
 	genromfs.exe -f romdisk.img -d romdisk -v -x .git .svn

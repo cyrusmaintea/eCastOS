@@ -1,9 +1,5 @@
 #include <system.h>
 
-char user[32];
-char motd[128];
-int id;
-
 extern void mountCTL(char *blkhdd, int state)
 {
 	if (state)
@@ -33,7 +29,7 @@ extern void printDIR(char *dir)
 
 	while ((entry = readdir(d)))
 	{
-		printPVR(((DISP_WIDTH / 2) - x), 0, "Press B To Return.");
+		printPVR(((DISP_WIDTH / 2) - x), 0, "  Press B To Return");
 		printPVR((DISP_WIDTH / 2) - 96, (45 + chk), entry->d_name);
 		dbglog(DBG_DEBUG, "%s\n", entry->d_name);
 		chk += 25;
@@ -180,7 +176,7 @@ extern int settingDBRead(char *blkhdd)
 	return 0;
 }
 
-extern int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard)
+extern int settingDBWrite(char *blkhdd, char *userName, char *motday, int idcard)
 {
 	FILE *fp;
 	if (!(fp = fopen(blkhdd, "w")))
@@ -227,6 +223,21 @@ extern int executeSub(char *rdsubelf)
 	subelf = fs_mmap(f);
 	assert(subelf);
 	arch_exec(subelf, fs_total(f));
+	return 0;
+}
+
+extern int makeDir(char *fileDir, int perm)
+{
+	struct stat st = {0};
+	if (stat(fileDir, &st) == -1)
+	{
+    	mkdir(fileDir, perm);
+		dbglog(DBG_DEBUG, "~ Made Directory %s with %d attributes\n", fileDir, perm);
+	} else
+	{
+		dbglog(DBG_DEBUG, "* Failed to Make Directory %s\n", fileDir);
+		return 1;
+	}
 	return 0;
 }
 

@@ -1,7 +1,7 @@
 #include <system.h>
 
 extern uint8 romdisk[];
-KOS_INIT_FLAGS(INIT_DEFAULT | INIT_MALLOCSTATS);
+KOS_INIT_FLAGS(INIT_DEFAULT | INIT_MALLOCSTATS | INIT_NET);
 KOS_INIT_ROMDISK(romdisk);
 
 int bCount = 0;
@@ -80,7 +80,7 @@ void update()
 
 		if (state->buttons & CONT_DPAD_DOWN || state->buttons & CONT_DPAD2_DOWN)
 		{
-			if (stateM != stateSettings)
+ 			if (stateM != stateSettings)
 			{
 				stateM = stateSettings;
 				dbglog(DBG_DEBUG, "~ Settings ~\n");
@@ -103,7 +103,7 @@ void update()
 			if (writeRTF())
 				dbglog(DBG_DEBUG, "** FS WRITE FAILED!\n");
 
-			if (settingDBSave("/hd/settings.conf", "CYRUS", "HelloWorld", 1))
+			if (settingDBWrite("/hd/settings.conf", "CYRUS", "HelloWorld", 1))
 				dbglog(DBG_DEBUG, "** Settings Save Failed!\n");
 
 			usleep(400000);
@@ -111,7 +111,7 @@ void update()
 
 		if (state->buttons & CONT_A)
 		{
-			
+
 			dbglog(DBG_DEBUG, "\nBooting romdisk binary...\n");
 			if (executeSub("/rd/SUB.ECS"))
 				dbglog(DBG_DEBUG, "** EXEC FAILED!\n");
@@ -170,26 +170,32 @@ void draw()
 	pvr_wait_ready();
 	pvr_scene_begin();
 	pvr_list_begin(PVR_LIST_OP_POLY);
-	if (stateM != statePaused)
+	if (stateM == stateMenu)
+	{
 		drawBG();
+	}
+	else if (stateM == statePaused)
+	{
+		//TODO: Paused Draw
+	}
 	pvr_list_finish();
 
 	pvr_list_begin(PVR_LIST_TR_POLY);
-	printPVR(0, 0, "eCastOS 0.3.4 | EXT2");
+	printPVR(0, 0, "eCastOS 0.3.6 | EXT2");
 	if (stateM != statePaused)
 	{
-		printPVR(0, 48, "A     : Boot RomDisk Binary");
+		printPVR(0, 48, "A     : Boot romdisk Binary");
 		printPVR(0, 72, "B     : List Root Directory");
 		if (mountState)
-			printPVR(0, 96, "X     : Unmount G1");
+			printPVR(0, 96, "X     : Un Mount G1");
 		if (!mountState)
 		{
 			printPVR(0, 96, "X     : Mount G1");
-			printPVR(0, 216, "G1    : Not Mounted");
+			printPVR(0, 240, "G1    : Not Mounted");
 		}
-		printPVR(0, 120, "Y     : Write HardDrive File's");
+		printPVR(0, 120, "Y     : Write Hard Drive File's");
 		printPVR(0, 168, "UP    : Pause Rendering PowerVR");
-		printPVR(0, 192, "DOWN  : Check Settings Under DBG");
+		printPVR(0, 192, "DOWN  : Check Settings Over Serial");
 	}
 	pvr_list_finish();
 	pvr_scene_finish();

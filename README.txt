@@ -1,5 +1,5 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*              eCastOS Version 0.3.4 [8/28/2016]               *
+*              eCastOS Version 0.3.6 [8/28/2016]               *
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *               eCastos "Embedded DreamCast OS"                *
 *        My goal is for a event driven, Script-able OS.        *

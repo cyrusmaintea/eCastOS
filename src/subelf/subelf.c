@@ -30,12 +30,12 @@ void updateSub() {
 
 		if(state->buttons & CONT_START) {
 
-			dbglog(DBG_DEBUG, "\nStart Button Pressed\n\n");
+			dbglog(DBG_DEBUG, "\nStart Pressed\n\n");
 			arch_exit();
 		}
 
 		if(state->buttons & CONT_B) {
-			dbglog(DBG_DEBUG, "\nButton B Pressed\n");
+			//dbglog(DBG_DEBUG, "\nButton B Pressed\n");
 		}
 
 	}
@@ -48,14 +48,13 @@ void drawSub() {
     pvr_scene_begin();
 
 	pvr_list_begin(PVR_LIST_OP_POLY);
-
 	pvr_list_finish();
 
 	pvr_list_begin(PVR_LIST_TR_POLY);
 
-	printPVR(20, 20, "eCastos 0.3.4");
-	printPVR(20, 45, "Welcome to Subelf :D");
-	printPVR(20, 70, "Press START To END");
+	printPVR(12, 24, "eCastos 0.3.4");
+	printPVR(12, 48, "Welcome to Subelf!");
+	printPVR(12, 72, "Press START To END");
 
 	pvr_list_finish();
 
