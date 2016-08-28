@@ -39,7 +39,6 @@
 extern void initTXT(int n);
 extern void initBG(char *bg);
 extern void drawBG();
-extern void initVideo(int disMode, int pixMode);
 extern void clearVideo(int r, int g, int b);
 extern void drawHLine(int x1, int x2, int y, uint16 c);
 extern void drawVLine(int x, int y1, int y2, uint16 c);

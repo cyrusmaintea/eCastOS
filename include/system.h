@@ -43,7 +43,6 @@ enum stateMachine {
 //VARS
 static unsigned char piobuf[] __attribute__((aligned(32)));
 static unsigned char tmp[] __attribute__((aligned(32)));
-
 pvr_ptr_t back_tex;
 kos_blockdev_t bd_pio;
 uint8 pt;

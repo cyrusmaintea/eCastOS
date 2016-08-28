@@ -34,11 +34,11 @@ run:
 	$(KOS_LOADER) -b 1500000 -t COM2 -x $(BINTARGET)
 
 clean:
-	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*.o $(BUILD)/SUB.ECS
+	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*.o
 
 buildboot: main.o $(TARGET)
 
-buildsub: subelf.o $(SUBTARGET) postsub
+buildsub: subelf.o $(SUBTARGET)
 
 supportlib: enc28j60.o #g2_ide.o
 	$(KOS_AR) rcs lib/libsupport.a $(BUILD)/enc28j60.o #$(BUILD)/g2_ide.o
@@ -67,12 +67,9 @@ proto_sub1.o: $(SRC)/proto/proto_sub1.c
 proto_sub2.o: $(SRC)/proto/proto_sub2.c
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) $(INCLUDES) -c $(SRC)/proto/proto_sub2.c -o $(BUILD)/proto_sub2.o
 
-postsub:	$(KOS_STRIP) $(BUILD)/subelf.elf
-	$(KOS_OBJCOPY) -O binary -R .stack $(BUILD)/subelf.elf $(BUILD)/SUB.ECS
-	cp $(BUILD)/SUB.ECS romdisk/SUB.ECS
-
 genromfs:
 	genromfs.exe -f romdisk.img -d romdisk -v -x .git .svn
+	$(KOS_BASE)/utils/bin2o/bin2o romdisk.img romdisk romdisk.o
 
 $(TARGET): $(OBJS)
 	$(KOS_CC) $(LIBRARYS) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $@ $(KOS_START) $(OBJS) $(DATAOBJS) $(OBJEXTRA) $(LIBS) $(KOS_LIBS)
@@ -80,3 +77,6 @@ $(TARGET): $(OBJS)
 
 $(SUBTARGET): $(SUBOBJS)
 	$(KOS_CC) $(LIBRARYS) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $@ $(KOS_START) $(SUBOBJS) $(DATAOBJS) $(OBJEXTRA) $(LIBS) $(KOS_LIBS)
+	$(KOS_STRIP) $(BUILD)/subelf.elf
+	$(KOS_OBJCOPY) -O binary -R .stack $(BUILD)/subelf.elf $(BUILD)/SUB.ECS
+	cp $(BUILD)/SUB.ECS romdisk/SUB.ECS

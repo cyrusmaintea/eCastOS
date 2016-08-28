@@ -6,7 +6,6 @@ int id;
 
 extern void mountCTL(char *blkhdd, int state)
 {
-
 	if (state)
 	{
 		dbglog(DBG_DEBUG, "\n~ Mount State Was Set To True!\n");
@@ -17,20 +16,16 @@ extern void mountCTL(char *blkhdd, int state)
 		dbglog(DBG_DEBUG, "\n~ Mount State Was Set To False!\n");
 		removeFS(blkhdd);
 	}
-
 }
 
 extern void printDIR(char *dir)
 {
-
 	DIR *d;
 	int chk = 0;
-
 	// char count * 12 / 2
 	int x = 216;
 
 	dbglog(DBG_DEBUG, "\nListing the contents of %s:\n", dir);
-
 	if (!(d = opendir(dir)))
 	{
 		dbglog(DBG_DEBUG, "Could not open %s: %s\n", dir, strerror(errno));
@@ -50,11 +45,9 @@ extern void printDIR(char *dir)
 
 extern void printRFS()
 {
-
 	DIR *d;
 
 	dbglog(DBG_DEBUG, "Listing the contents of root:\n");
-
 	if (!(d = opendir("/hd")))
 	{
 		dbglog(DBG_DEBUG, "Could not open /hd: %s\n", strerror(errno));
@@ -133,28 +126,25 @@ extern int removeFS(char *blkhdd)
 		return -1;
 	}
 	mountState = 0;
-	dbglog(DBG_DEBUG, "~ Unmounted ext2fs\n\n");
+	dbglog(DBG_DEBUG, "~ Unmounted ext2fs\n");
 	return 0;
 }
 
 extern int syncHDD(char *blkhdd)
 {
-
 	if (fs_ext2_sync(blkhdd))
 	{
 		dbglog(DBG_DEBUG, "* Failed to SYNC ext2fs!\n");
 		return 1;
 	}
 
-	dbglog(DBG_DEBUG, "~ SYNC ext2fs\n\n");
-
+	dbglog(DBG_DEBUG, "~ SYNC ext2fs\n");
 	return 0;
 }
 
 extern int writeTextFile(char *blkhdd, char *str)
 {
 	FILE *fp;
-
 	if (!(fp = fopen(blkhdd, "w")))
 	{
 		dbglog(DBG_DEBUG, "Could not create file: %s\n", strerror(errno));
@@ -178,7 +168,6 @@ extern int writeTextFile(char *blkhdd, char *str)
 extern int settingDBRead(char *blkhdd)
 {
 	FILE *fp;
-
 	if (!(fp = fopen(blkhdd, "r")))
 	{
 		dbglog(DBG_DEBUG, "Could not open settings file: %s\n", strerror(errno));
@@ -186,9 +175,7 @@ extern int settingDBRead(char *blkhdd)
 	}
 
 	fscanf(fp, "USER=%s MOTD=%s ID=%d", user, motd, &id);
-
 	dbglog(DBG_DEBUG, "USERNAME = %s | MOTD = %s | ID = %d\n", user, motd, id);
-
 	fclose(fp);
 	return 0;
 }
@@ -196,7 +183,6 @@ extern int settingDBRead(char *blkhdd)
 extern int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard)
 {
 	FILE *fp;
-
 	if (!(fp = fopen(blkhdd, "w")))
 	{
 		dbglog(DBG_DEBUG, "Could not open settings file: %s\n", strerror(errno));
@@ -204,9 +190,7 @@ extern int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard)
 	}
 
 	fprintf(fp, "USER=%s MOTD=%s ID=%d", userName, motday, idcard);
-
 	dbglog(DBG_DEBUG, "\nSaved settings!\n");
-
 	fclose(fp);
 	return 0;
 }
@@ -214,7 +198,6 @@ extern int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard)
 extern int writeRTF()
 {
 	FILE *fp;
-
 	if (!(fp = fopen("/hd/test.txt", "w")))
 	{
 		dbglog(DBG_DEBUG, "Could not create file: %s\n", strerror(errno));
@@ -237,20 +220,13 @@ extern int writeRTF()
 
 extern int executeSub(char *rdsubelf)
 {
-
+	file_t f;
 	void *subelf;
-
-	if (!(f = open(rdsubelf, O_RDONLY)))
-	{
-		dbglog(DBG_DEBUG, "* Failed to open sub elf!\n");
-		return 1;
-	}
-
+	f = fs_open(rdsubelf, O_RDONLY);
 	assert(f);
 	subelf = fs_mmap(f);
 	assert(subelf);
 	arch_exec(subelf, fs_total(f));
-
 	return 0;
 }
 

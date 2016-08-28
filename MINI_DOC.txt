@@ -2,7 +2,7 @@
 /*		Author: Warren Cyrus ~ DevolutionX
  *		Built With KallistiOS and 'FOSS'.
  *
- *		v0.3.3		08/28/16
+ *		0.3.4		08/28/16
  */
 
                             CCCCCCCCCCCCC                                           tttt
@@ -124,11 +124,7 @@ libproto.a Library:
 			Loads 'bg' into pvr texture memory.
 
 		[ void drawBG() ]
-			Renders the png and sets the parameters for rendering.
-
-		[ initVideo(int disMode, int pixMode) ]
-			Initializes the video.
-			Sets up the display with the KOS macros.
+			Loads a PNG and sets the parameters for rendering.
 
 		[ clearVideo(int r, int g, int b) ]
 			Clears video with input rgb color.

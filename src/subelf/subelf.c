@@ -7,7 +7,7 @@ KOS_INIT_ROMDISK(romdisk);
 
 int main(int argc, char **argv) {
 
-	initVideo(DM_640x480, PM_RGB565);
+	pvr_init_defaults();
 
 	initTXT(TEXT_ENC);
 
@@ -53,7 +53,7 @@ void drawSub() {
 
 	pvr_list_begin(PVR_LIST_TR_POLY);
 
-	printPVR(20, 20, "eCastos v0.3.2");
+	printPVR(20, 20, "eCastos 0.3.4");
 	printPVR(20, 45, "Welcome to Subelf :D");
 	printPVR(20, 70, "Press START To END");
 
