@@ -101,7 +101,7 @@ MAKEFILE_DOC:
 			make run
 
 
-LIBPROTO.A Library
+libproto.a Library:
 
 	proto_sio.h:
 
@@ -117,7 +117,7 @@ LIBPROTO.A Library
 
 	proto_sub1.h:
 
-		[ initTXT(int *n) ]
+		[ void initTXT(int *n) ]
 			Sets the Encoding.
 
 		[ void initBG(char *bg) ]

@@ -196,7 +196,7 @@ void draw()
 	pvr_scene_begin();
 	pvr_list_begin(PVR_LIST_OP_POLY);
 
-	if (stateM != stateMenu)
+	if (stateM != statePaused)
 		drawBG();
 
 	pvr_list_finish();
