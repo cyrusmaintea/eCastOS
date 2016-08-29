@@ -52,7 +52,7 @@ void drawSub() {
 
 	pvr_list_begin(PVR_LIST_TR_POLY);
 
-	printPVR(12, 24, "eCastos 0.3.4");
+	printPVR(12, 24, "eCastos 0.3.6");
 	printPVR(12, 48, "Welcome to Subelf!");
 	printPVR(12, 72, "Press START To END");
 

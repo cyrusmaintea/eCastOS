@@ -1,7 +1,7 @@
 #include <system.h>
 
 extern uint8 romdisk[];
-KOS_INIT_FLAGS(INIT_DEFAULT | INIT_MALLOCSTATS | INIT_NET);
+KOS_INIT_FLAGS(INIT_DEFAULT | INIT_MALLOCSTATS);
 KOS_INIT_ROMDISK(romdisk);
 
 int bCount = 0;
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 					dbglog(DBG_DEBUG, "* Failed to Initialize HDD!\n");
 				if (initFS("/hd"))
 					dbglog(DBG_DEBUG, "* Failed to Initialize EXT2 FS!\n");
-				sleep(2);
+				sleep(1);
 				stateM = stateMenu;
 				break;
 
@@ -44,7 +44,6 @@ int main(int argc, char **argv)
 				stateM = stateMenu;
 				break;
 		}
-
 		update();
 	}
 
@@ -91,6 +90,8 @@ void update()
 
 		if (state->buttons & CONT_DPAD_LEFT || state->buttons & CONT_DPAD2_LEFT)
 		{
+			makeDir("/hd/screenshot", 0755);
+			usleep(400000);
 		}
 
 		if (state->buttons & CONT_DPAD_RIGHT || state->buttons & CONT_DPAD2_RIGHT)

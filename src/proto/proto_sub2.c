@@ -87,8 +87,7 @@ extern int initHDD()
 		return -1;
 	}
 	dbglog(DBG_DEBUG, "*** PIO MODE ***\n");
-	dbglog(DBG_DEBUG,
-		   "~ G1 ATA Device Initialized\n~ Set drive to SLAVE and Partition 0 Selected\n");
+	dbglog(DBG_DEBUG, "~ G1 ATA Device Initialized\n~ Set drive to SLAVE and Partition 0 Selected\n");
 	return 0;
 }
 
@@ -235,7 +234,7 @@ extern int makeDir(char *fileDir, int perm)
 		dbglog(DBG_DEBUG, "~ Made Directory %s with %d attributes\n", fileDir, perm);
 	} else
 	{
-		dbglog(DBG_DEBUG, "* Failed to Make Directory %s\n", fileDir);
+		dbglog(DBG_DEBUG, "Directory %s exists!\n", fileDir);
 		return 1;
 	}
 	return 0;

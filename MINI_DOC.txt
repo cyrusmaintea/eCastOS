@@ -32,7 +32,7 @@ INFO:
 LICENSE:
 	PART1:
 		The Following Files are NOT MINE:
-		enc28j60.c enc28j60.h
+		enc28j60.c enc28j60.h spi.h
 		Please visit SWAT over @ http://www.dc-swat.ru/
 		For this information.
 	PART2:
@@ -50,6 +50,7 @@ libproto.a:
 		proto_sub1.c	/ proto_sub1.h
 		proto_sub2.c	/ proto_sub2.h
 		proto_sio.c     / proto_sio.h
+        proto_util.c    / proto_util.h
 
 CREDIT WHERE DUE:
 	Bluecrab 	- Several Examples from src included in KOS and online @ http://dcemulation.org/
@@ -203,11 +204,14 @@ libproto.a Library:
 		[ int executeSub(char *rdsubelf) ]
             Executes a secondary binary from romdisk.
 
+        [ int makeDir(char *fileDir, int perm) ]
+            Creates a Directory with folder permissions. 
+
 		[ void shutDown(char *blkhdd) ]
             Handles the Applications shutdown process.
 
 
-TODO: Create Directory Function
+TODO:
 	  Delete Directory Function
 	  Cut Copy Paste Functions
 	  Keyboard Input

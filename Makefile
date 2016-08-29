@@ -13,7 +13,7 @@ OBJS = $(BUILD)/main.o $(BUILD)/proto_sub1.o $(BUILD)/proto_sub2.o $(BUILD)/prot
 KOS_ROMDISK_DIR = romdisk
 
 SUBTARGET = $(BUILD)/subelf.elf
-SUBOBJS =  $(BUILD)/proto_sub1.o $(BUILD)/proto_sub2.o romdisk.o $(BUILD)/subelf.o
+SUBOBJS =  $(BUILD)/proto_sub1.o $(BUILD)/proto_sub2.o $(BUILD)/subelf.o romdisk.o
 
 include $(KOS_BASE)/Makefile.rules
 
