@@ -33,6 +33,9 @@ dbg:
 run:
 	$(KOS_LOADER) -b 1500000 -t COM2 -x $(BINTARGET)
 
+subdbg:
+	$(KOS_LOADER) -b 1500000 -t COM2 -x build/subelf.elf
+
 clean:
 	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*
 
@@ -73,6 +76,7 @@ genromfs:
 
 $(TARGET): $(OBJS)
 	$(KOS_CC) $(LIBRARYS) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $@ $(KOS_START) $(OBJS) $(DATAOBJS) $(OBJEXTRA) $(LIBS) $(KOS_LIBS)
+	$(KOS_STRIP) $(BUILD)/main.elf
 	$(KOS_OBJCOPY) -O binary -R .stack $@ build/1ST_READ.BIN
 
 $(SUBTARGET): $(SUBOBJS)
