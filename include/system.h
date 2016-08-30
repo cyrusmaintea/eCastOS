@@ -62,4 +62,4 @@ int id;
 
 //Author's methods Start:
 void update();
-void draw();
+void core();

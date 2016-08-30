@@ -29,7 +29,6 @@ extern void printDIR(char *dir)
 
 	while ((entry = readdir(d)))
 	{
-		printPVR(((DISP_WIDTH / 2) - x), 0, "  Press B To Return");
 		printPVR((DISP_WIDTH / 2) - 96, (45 + chk), entry->d_name);
 		dbglog(DBG_DEBUG, "%s\n", entry->d_name);
 		chk += 25;

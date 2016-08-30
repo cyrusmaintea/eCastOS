@@ -7,44 +7,25 @@ KOS_INIT_ROMDISK(romdisk);
 int bCount = 0;
 int mountState = 0;
 enum stateMachine stateM = stateBoot;
+enum stateMachine lastSt;
 
 int main(int argc, char **argv)
 {
+
+	pvr_init_defaults();
+	initTXT(TEXT_ENC);
+	initBG("/rd/bg2.png");
+
+	if (initHDD())
+		dbglog(DBG_DEBUG, "* Failed to Initialize HDD!\n");
+
+	if (initFS("/hd"))
+		dbglog(DBG_DEBUG, "* Failed to Initialize EXT2 FS!\n");
+
 	while (1)
 	{
-		switch (stateM)
-		{
-			case statePaused:
-				printPVR((DISP_WIDTH / 2) - 36, (DISP_HEIGHT / 2) - 24, "Paused");
-				break;
-
-			case stateMenu:
-				draw();
-				break;
-
-			case statePrintDIR:
-				//printDIR("/hd");
-				break;
-
-			case stateBoot:
-				pvr_init_defaults();
-				initTXT(TEXT_ENC);
-				initBG("/rd/bg2.png");
-				printPVR(12, 24, "Initializing eCastOS...");
-				if (initHDD())
-					dbglog(DBG_DEBUG, "* Failed to Initialize HDD!\n");
-				if (initFS("/hd"))
-					dbglog(DBG_DEBUG, "* Failed to Initialize EXT2 FS!\n");
-				sleep(1);
-				stateM = stateMenu;
-				break;
-
-			case stateSettings:
-				settingDBRead("/hd/settings.conf");
-				stateM = stateMenu;
-				break;
-		}
 		update();
+		core();
 	}
 
 	return 0;
@@ -79,11 +60,9 @@ void update()
 
 		if (state->buttons & CONT_DPAD_DOWN || state->buttons & CONT_DPAD2_DOWN)
 		{
- 			if (stateM != stateSettings)
-			{
-				stateM = stateSettings;
-				dbglog(DBG_DEBUG, "~ Settings ~\n");
-			}
+
+			dbglog(DBG_DEBUG, "~ Settings ~\n");
+			settingDBRead("/hd/settings.conf");
 
 			usleep(400000);
 		}
@@ -141,7 +120,6 @@ void update()
 		{
 			//dbglog(DBG_DEBUG, "\nButton B Pressed\n");
 			bCount += 1;
-			stateM = statePrintDIR;
 
 			if (bCount == 2)
 			{
@@ -149,10 +127,11 @@ void update()
 				bCount = 0;
 				dbglog(DBG_DEBUG, "~ STATEMACHINE set to Menu\n");
 			}
-			else if ((stateM == statePrintDIR) && (mountState))
+			else if (mountState)
 			{
+				stateM = statePrintDIR;
 				dbglog(DBG_DEBUG, "~ STATEMACHINE set to PrintDIR\n");
-				printDIR("/hd");
+
 			}
 			usleep(400000);
 		}
@@ -166,38 +145,61 @@ void update()
 }
 
 // Main menu
-void draw()
+void core()
 {
 	pvr_wait_ready();
 	pvr_scene_begin();
 	pvr_list_begin(PVR_LIST_OP_POLY);
-	if (stateM == stateMenu)
-	{
-		drawBG();
-	}
-	else if (stateM == statePaused)
-	{
-		//TODO: Paused Draw
-	}
+		if (stateM == stateMenu)
+			drawBG();
 	pvr_list_finish();
+	switch(stateM)
+	{
+		case statePaused:
+			pvr_list_begin(PVR_LIST_TR_POLY);
+			printPVR((DISP_WIDTH / 2) - 36, (DISP_HEIGHT / 2) - 24, "Paused");
+			pvr_list_finish();
+			break;
 
-	pvr_list_begin(PVR_LIST_TR_POLY);
-	printPVR(0, 0, "eCastOS 0.3.6 | EXT2");
-	if (stateM != statePaused)
-	{
-		printPVR(0, 48, "A     : Boot romdisk Binary");
-		printPVR(0, 72, "B     : List Root Directory");
-		if (mountState)
-			printPVR(0, 96, "X     : Un Mount G1");
-		if (!mountState)
-		{
-			printPVR(0, 96, "X     : Mount G1");
-			printPVR(0, 240, "G1    : Not Mounted");
-		}
-		printPVR(0, 120, "Y     : Write Hard Drive File's");
-		printPVR(0, 168, "UP    : Pause Rendering PowerVR");
-		printPVR(0, 192, "DOWN  : Check Settings Over Serial");
+		case stateMenu:
+			pvr_list_begin(PVR_LIST_TR_POLY);
+			printPVR(0, 0, "eCastOS 0.3.6 | EXT2");
+			printPVR(0, 48, "A     : Boot romdisk Binary");
+			printPVR(0, 72, "B     : List Root Directory");
+			if (mountState)
+				printPVR(0, 96, "X     : Un Mount G1");
+			if (!mountState)
+			{
+				printPVR(0, 96, "X     : Mount G1");
+				printPVR(0, 240, "G1    : Not Mounted");
+			}
+			printPVR(0, 120, "Y     : Write Hard Drive File's");
+			printPVR(0, 168, "UP    : Pause Rendering PowerVR");
+			printPVR(0, 192, "DOWN  : Check Settings Over Serial");
+			pvr_list_finish();
+			break;
+
+		case statePrintDIR:
+			pvr_list_begin(PVR_LIST_TR_POLY);
+			printPVR(((DISP_WIDTH / 2) - 216), 0, "  Press B To Return");
+			pvr_list_finish();
+
+			printDIR("/hd");
+			break;
+
+		case stateSettings:
+			pvr_list_begin(PVR_LIST_TR_POLY);
+			pvr_list_finish();
+			break;
+
+		case stateBoot:
+			pvr_list_begin(PVR_LIST_TR_POLY);
+			printPVR(12, 24, "Initializing eCastOS...");
+			pvr_list_finish();
+
+			stateM = stateMenu;
+			break;
 	}
-	pvr_list_finish();
+
 	pvr_scene_finish();
 }
