@@ -2,8 +2,8 @@ BUILD = build
 SRC = src
 
 INCLUDES = -Iinclude
-LIBS = -lkosext2fs -lpng -lz -lm
-LIBRARYS = lib/libsupport.a lib/libproto.a
+LIBS = -lkosext2fs -lpng -llua -lz -lm
+LIBRARYS = lib/libsupport.a lib/libproto.a lib/liblua.a
 
 TARGET = $(BUILD)/main.elf
 BINTARGET = $(BUILD)/1ST_READ.BIN
@@ -37,7 +37,7 @@ subdbg:
 	$(KOS_LOADER) -b 1500000 -t COM2 -x build/subelf.elf
 
 clean:
-	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(LIBRARYS) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*
+	-rm -f $(TARGET) $(BINTARGET) romdisk/SUB.ECS $(SUBTARGET) $(OBJS) $(SUBOBJS) romdisk.* $(BUILD)/*
 
 buildboot: main.o $(TARGET)
 

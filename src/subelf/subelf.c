@@ -12,7 +12,6 @@ int main(int argc, char **argv) {
 
 	initBG("/rd/bg.png");
 
-
 	while (1) {
 		updateSub();
 		drawSub();

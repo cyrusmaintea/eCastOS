@@ -131,7 +131,7 @@ void update()
 			{
 				stateM = statePrintDIR;
 				dbglog(DBG_DEBUG, "~ STATEMACHINE set to PrintDIR\n");
-
+				printDIR("/hd");
 			}
 			usleep(400000);
 		}
@@ -183,8 +183,6 @@ void core()
 			pvr_list_begin(PVR_LIST_TR_POLY);
 			printPVR(((DISP_WIDTH / 2) - 216), 0, "  Press B To Return");
 			pvr_list_finish();
-
-			printDIR("/hd");
 			break;
 
 		case stateSettings:
@@ -196,7 +194,7 @@ void core()
 			pvr_list_begin(PVR_LIST_TR_POLY);
 			printPVR(12, 24, "Initializing eCastOS...");
 			pvr_list_finish();
-
+			sleep(1);
 			stateM = stateMenu;
 			break;
 	}
