@@ -64,8 +64,8 @@ char motd[128];
 int id;
 
 //LUA
-lua_State* L1;
-lua_State* L2;
+lua_State *L1;
+lua_State *L2;
 
 //Author's methods Start:
 void update();

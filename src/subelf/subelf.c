@@ -11,6 +11,7 @@ int main(int argc, char **argv) {
 	initTXT(TEXT_ENC);
 
 	initBG("/rd/bg.png");
+	//initLua();
 
 	while (1) {
 		updateSub();
@@ -30,10 +31,12 @@ void updateSub() {
 		if(state->buttons & CONT_START) {
 
 			dbglog(DBG_DEBUG, "\nStart Pressed\n\n");
+			//closeLua();
 			arch_exit();
 		}
 		if(state->buttons & CONT_B) {
 			//dbglog(DBG_DEBUG, "\nButton B Pressed\n");
+			//execLua("/rd/main.lua");
 		}
 	}
 }

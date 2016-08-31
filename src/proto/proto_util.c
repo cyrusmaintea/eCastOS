@@ -16,6 +16,8 @@ extern int initLua()
 extern int execLua(char *lua)
 {
     lua_dofile(L1, lua);
+
+    return 0;
 }
 
 extern void closeLua()

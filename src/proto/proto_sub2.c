@@ -19,7 +19,7 @@ extern void printDIR(char *dir)
 	DIR *d;
 	int chk = 0;
 	// char count * 12 / 2
-	int x = 216;
+	//int x = 216;
 
 	dbglog(DBG_DEBUG, "\nListing the contents of %s:\n", dir);
 	if (!(d = opendir(dir)))
