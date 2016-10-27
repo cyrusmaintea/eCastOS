@@ -10,6 +10,9 @@
 #include <zlib/zlib.h>
 #include <ext2/fs_ext2.h>
 //STD
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <string.h>
 #include <stdint.h>
 #include <errno.h>

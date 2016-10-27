@@ -149,10 +149,12 @@ void core()
 {
 	pvr_wait_ready();
 	pvr_scene_begin();
+
 	pvr_list_begin(PVR_LIST_OP_POLY);
 		if (stateM == stateMenu)
 			drawBG();
 	pvr_list_finish();
+
 	switch(stateM)
 	{
 		case statePaused:
