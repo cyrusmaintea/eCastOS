@@ -1,10 +1,6 @@
 //*****************************************************************//
 //KOS
 #include <kos.h>
-//LUA
-#include <lua.h>
-#include <lualib.h>
-#include <lauxlib.h>
 //POR
 #include <png/png.h>
 #include <zlib/zlib.h>
@@ -36,9 +32,9 @@
 //*****************************************************************//
 
 //DEFINES
-#define TEXT_ENC				0
-#define BUSMODE					0
-#define MNT_MODE 				FS_EXT2_MOUNT_READWRITE
+#define TEXT_ENC					0
+#define BUSMODE						0
+#define MNT_MODE 					FS_EXT2_MOUNT_READWRITE
 #define DISP_WIDTH				640
 #define DISP_HEIGHT				480
 
@@ -65,10 +61,6 @@ struct dirent *entry;
 char user[32];
 char motd[128];
 int id;
-
-//LUA
-lua_State *L1;
-lua_State *L2;
 
 //Author's methods Start:
 void update();
