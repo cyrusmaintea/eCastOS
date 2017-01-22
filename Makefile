@@ -2,8 +2,8 @@ BUILD = build
 SRC = src
 
 INCLUDES = -Iinclude
-LIBS = -lkosext2fs -lpng -llua -lz -lm
-LIBRARYS = lib/libsupport.a lib/libproto.a lib/liblua.a
+LIBS = -lkosext2fs -lpng -lz -lm
+LIBRARYS = lib/libsupport.a lib/libproto.a
 
 TARGET = $(BUILD)/main.elf
 BINTARGET = $(BUILD)/1ST_READ.BIN
@@ -28,13 +28,13 @@ buildlib: supportlib protolib
 build: buildsub genromfs buildboot
 
 dbg:
-	$(KOS_LOADER) -b 1500000 -t COM2 -x $(TARGET)
+	$(KOS_LOADER) -b 1500000 -t COM5 -x $(TARGET)
 
 run:
-	$(KOS_LOADER) -b 1500000 -t COM2 -x $(BINTARGET)
+	$(KOS_LOADER) -b 1500000 -t COM5 -x $(BINTARGET)
 
 subdbg:
-	$(KOS_LOADER) -b 1500000 -t COM2 -x $(SUBTARGET)
+	$(KOS_LOADER) -b 1500000 -t COM5 -x $(SUBTARGET)
 
 clean:
 	rm -f romdisk/SUB.ECS romdisk.* $(BUILD)/*
