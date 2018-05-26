@@ -32,9 +32,9 @@
 //*****************************************************************//
 
 //DEFINES
-#define TEXT_ENC				0
-#define BUSMODE					0
-#define MNT_MODE 				FS_EXT2_MOUNT_READWRITE
+#define TEXT_ENC					0
+#define BUSMODE						0
+#define MNT_MODE 					FS_EXT2_MOUNT_READWRITE
 #define DISP_WIDTH				640
 #define DISP_HEIGHT				480
 
