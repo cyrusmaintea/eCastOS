@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	pvr_init_defaults();
 	initTXT(TEXT_ENC);
 
-	initBG("/rd/bg.png");
+	initBG("/rd/bg2.png");
 	//initLua();
 
 	while (1) {
@@ -51,15 +51,11 @@ void drawSub() {
 
 	pvr_list_begin(PVR_LIST_TR_POLY);
 
-	printPVR(12, 24, "eCastos 0.3.6");
+	printPVR(12, 24, "eCastos 0.3.7");
 	printPVR(12, 48, "Welcome to Subelf!");
 	printPVR(12, 72, "Press START To END");
 
 	pvr_list_finish();
 
     pvr_scene_finish();
-}
-
-void display() {
-	drawCBox(24, 256, 616, 256, PACK_PIXEL(128, 128, 128));
 }

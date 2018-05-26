@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		update();
-		core();
+		gfx();
 	}
 
 	return 0;
@@ -69,7 +69,6 @@ void update()
 
 		if (state->buttons & CONT_DPAD_LEFT || state->buttons & CONT_DPAD2_LEFT)
 		{
-			makeDir("/hd/screenshot", 0755);
 			usleep(400000);
 		}
 
@@ -123,15 +122,15 @@ void update()
 
 			if (bCount == 2)
 			{
-				stateM = stateMenu;
 				bCount = 0;
+				stateM = stateMenu;
 				dbglog(DBG_DEBUG, "~ STATEMACHINE set to Menu\n");
 			}
 			else if (mountState)
 			{
 				stateM = statePrintDIR;
 				dbglog(DBG_DEBUG, "~ STATEMACHINE set to PrintDIR\n");
-				printDIR("/hd");
+
 			}
 			usleep(400000);
 		}
@@ -145,27 +144,27 @@ void update()
 }
 
 // Main menu
-void core()
+void gfx()
 {
 	pvr_wait_ready();
 	pvr_scene_begin();
 
 	pvr_list_begin(PVR_LIST_OP_POLY);
-		if (stateM == stateMenu)
+		if (stateM == stateMenu || stateM == statePrintDIR)
 			drawBG();
 	pvr_list_finish();
+
+
+	pvr_list_begin(PVR_LIST_TR_POLY);
 
 	switch(stateM)
 	{
 		case statePaused:
-			pvr_list_begin(PVR_LIST_TR_POLY);
 			printPVR((DISP_WIDTH / 2) - 36, (DISP_HEIGHT / 2) - 24, "Paused");
-			pvr_list_finish();
 			break;
 
 		case stateMenu:
-			pvr_list_begin(PVR_LIST_TR_POLY);
-			printPVR(0, 0, "eCastOS 0.3.6 | EXT2");
+			printPVR(0, 0, "eCastOS 0.3.7 | EXT2");
 			printPVR(0, 48, "A     : Boot romdisk Binary");
 			printPVR(0, 72, "B     : List Root Directory");
 			if (mountState)
@@ -178,28 +177,26 @@ void core()
 			printPVR(0, 120, "Y     : Write Hard Drive File's");
 			printPVR(0, 168, "UP    : Pause Rendering PowerVR");
 			printPVR(0, 192, "DOWN  : Check Settings Over Serial");
-			pvr_list_finish();
 			break;
 
 		case statePrintDIR:
-			pvr_list_begin(PVR_LIST_TR_POLY);
 			printPVR(((DISP_WIDTH / 2) - 216), 0, "  Press B To Return");
-			pvr_list_finish();
+			do {
+				printDIR("/hd");
+		  } while (stateM == statePrintDIR);
 			break;
 
 		case stateSettings:
-			pvr_list_begin(PVR_LIST_TR_POLY);
-			pvr_list_finish();
 			break;
 
 		case stateBoot:
-			pvr_list_begin(PVR_LIST_TR_POLY);
 			printPVR(12, 24, "Initializing eCastOS...");
-			pvr_list_finish();
 			sleep(1);
 			stateM = stateMenu;
 			break;
 	}
+
+	pvr_list_finish();
 
 	pvr_scene_finish();
 }

@@ -2,7 +2,7 @@
 /*		Author: Warren Cyrus ~ DevolutionX
  *		Built With KallistiOS and 'FOSS'.
  *
- *		0.3.6		08/28/16
+ *		0.3.7		08/28/16
  */
 
                             CCCCCCCCCCCCC                                           tttt
@@ -81,7 +81,7 @@ MAKEFILE_DOC:
 		^______________________________________^
 
 		dbg - starts dc-tool.exe and executes the target as elf
-		run - starts dc-tool.exe and ececutes the target as bin
+		run - starts dc-tool.exe and executes the target as bin
 		________________________________________
 		^\             dbg & run              /^
 		^ \__________________________________/ ^
@@ -146,12 +146,6 @@ libproto.a Library:
 			~ }                                                                          ~
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		Recycled: Bluecrab
-			void drawHLine(int x1, int x2, int y, uint16 c);
-			void drawVLine(int x, int y1, int y2, uint16 c);
-			void drawCBox(int x1, int y1, int x2, int y2, uint16 c);
-			void drawFBox(int x1, int y1, int x2, int y2, uint16 c);
-
 	proto_sub2.h:
 
 		[ void mountCTL(char *blkhdd, int state) ]
@@ -190,13 +184,13 @@ libproto.a Library:
             Writes a text string to a specific
             file and directory.
 
-        [ int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard) ]
-            Takes parameters and a file location
-            to store eCastOS's configuration data.
+    [ int settingDBSave(char *blkhdd, char *userName, char *motday, int idcard) ]
+        Takes parameters and a file location
+        to store eCastOS's configuration data.
 
-        [ int settingDBRead(char *blkhdd) ]
-            Loads and Displays the configuration
-            for eCastOS over Serial.
+    [ int settingDBRead(char *blkhdd) ]
+        Loads and Displays the configuration
+        for eCastOS over Serial.
 
 		[ int writeRTF() ]
             Writes a test text file on root.
@@ -205,7 +199,7 @@ libproto.a Library:
             Executes a secondary binary from romdisk.
 
         [ int makeDir(char *fileDir, int perm) ]
-            Creates a Directory with folder permissions. 
+            Creates a Directory with folder permissions.
 
 		[ void shutDown(char *blkhdd) ]
             Handles the Applications shutdown process.

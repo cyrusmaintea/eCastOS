@@ -2,8 +2,8 @@ BUILD = build
 SRC = src
 
 INCLUDES = -Iinclude
-LIBS = -lkosext2fs -lpng -llua -lz -lm
-LIBRARYS = lib/libsupport.a lib/libproto.a lib/liblua.a
+LIBS = -lkosext2fs -lpng -lz -lm
+LIBRARYS = lib/libsupport.a lib/libproto.a
 
 TARGET = $(BUILD)/main.elf
 BINTARGET = $(BUILD)/1ST_READ.BIN

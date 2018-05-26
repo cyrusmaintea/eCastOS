@@ -1,10 +1,6 @@
 //*****************************************************************//
 //KOS
 #include <kos.h>
-//LUA
-#include <lua.h>
-#include <lualib.h>
-#include <lauxlib.h>
 //POR
 #include <png/png.h>
 #include <zlib/zlib.h>
@@ -66,10 +62,6 @@ char user[32];
 char motd[128];
 int id;
 
-//LUA
-lua_State *L1;
-lua_State *L2;
-
 //Author's methods Start:
 void update();
-void core();
+void gfx();
