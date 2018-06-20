@@ -50,7 +50,7 @@ libproto.a:
 		proto_sub1.c	/ proto_sub1.h
 		proto_sub2.c	/ proto_sub2.h
 		proto_sio.c     / proto_sio.h
-        proto_util.c    / proto_util.h
+    proto_util.c    / proto_util.h
 
 CREDIT WHERE DUE:
 	Bluecrab 	- Several Examples from src included in KOS and online @ http://dcemulation.org/
@@ -198,8 +198,8 @@ libproto.a Library:
 		[ int executeSub(char *rdsubelf) ]
             Executes a secondary binary from romdisk.
 
-        [ int makeDir(char *fileDir, int perm) ]
-            Creates a Directory with folder permissions.
+    [ int makeDir(char *fileDir, int perm) ]
+        Creates a Directory with folder permissions.
 
 		[ void shutDown(char *blkhdd) ]
             Handles the Applications shutdown process.
